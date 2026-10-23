@@ -1,0 +1,10 @@
+{
+  "app": "wordcraft",
+  "selected": [
+    "windows:x64:portable",
+    "windows:x64:msi",
+    "windows:x86:portable",
+    "windows:x86:msi"
+  ],
+  "note": "Only these formats will be uploaded as GitHub Actions artifacts"
+}

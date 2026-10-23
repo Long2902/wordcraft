@@ -17,14 +17,14 @@
 -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
   <Package
-      Name="WordCraft"
-      Manufacturer="Learning Machines LLC"
+      Name="DuyLong Word"
+      Manufacturer="Đỗ Duy Long"
       Version="$(var.Version)"
       UpgradeCode="075497F9-E861-45D0-9C7F-A74F8C34E6BA"
       Scope="perMachine"
       Compressed="yes"
       Language="1033">
-    <SummaryInformation Description="WordCraft word processor" Manufacturer="Learning Machines LLC" />
+    <SummaryInformation Description="DuyLong Word word processor" Manufacturer="Đỗ Duy Long" />
     <!-- Same-version upgrades let successive pre-releases of one X.Y.Z replace each other
          (MSI versions are numeric, so 1.2.3-rc.1 and 1.2.3-rc.2 are both 1.2.3). -->
     <MajorUpgrade AllowSameVersionUpgrades="yes"
@@ -33,9 +33,9 @@
 
     <Icon Id="WordcraftIcon.ico" SourceFile="$(var.IconPath)" />
     <Property Id="ARPPRODUCTICON" Value="WordcraftIcon.ico" />
-    <Property Id="ARPURLINFOABOUT" Value="https://getartcraft.com/apps/wordcraft" />
-    <Property Id="ARPURLUPDATEINFO" Value="https://getartcraft.com/apps/wordcraft" />
-    <Property Id="ARPHELPLINK" Value="https://discord.gg/artcraft" />
+    <Property Id="ARPURLINFOABOUT" Value="" />
+    <Property Id="ARPURLUPDATEINFO" Value="" />
+    <Property Id="ARPHELPLINK" Value="" />
 
     <!-- Installer UI (#198): WixUI_Minimal is welcome + license, progress, then a finish page so
          people can see the install worked. Its dialogs and bitmaps are WiX's own
@@ -55,11 +55,11 @@
     </UI>
 
     <StandardDirectory Id="ProgramFiles6432Folder">
-      <Directory Id="INSTALLFOLDER" Name="WordCraft" />
+      <Directory Id="INSTALLFOLDER" Name="DuyLong Word" />
     </StandardDirectory>
     <StandardDirectory Id="ProgramMenuFolder" />
 
-    <Feature Id="Main" Title="WordCraft" Level="1">
+    <Feature Id="Main" Title="DuyLong Word" Level="1">
       <ComponentGroupRef Id="WordcraftFiles" />
     </Feature>
   </Package>
@@ -68,8 +68,8 @@
     <ComponentGroup Id="WordcraftFiles" Directory="INSTALLFOLDER">
       <Component Id="WordcraftApp" Guid="855DCEC6-9285-444F-9382-9654B83B34F6">
         <File Id="WordcraftExe" Source="$(var.BinDir)\wordcraft.exe" KeyPath="yes">
-          <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="WordCraft"
-              Description="WordCraft word processor" WorkingDirectory="INSTALLFOLDER" Advertise="yes"
+          <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="DuyLong Word"
+              Description="DuyLong Word word processor" WorkingDirectory="INSTALLFOLDER" Advertise="yes"
               Icon="WordcraftIcon.ico" IconIndex="0" />
         </File>
 
@@ -84,11 +84,11 @@
            extension's default: the installer never takes over .docx from another app. Markdown and
            plain text are only "Open with" candidates. Removed again on uninstall. -->
       <Component Id="WordcraftFileTypes" Guid="EFF89E6A-F9B8-49F9-B3AE-E243347484B4">
-        <RegistryValue Root="HKLM" Key="Software\RegisteredApplications" Name="WordCraft" Value="Software\WordCraft\Capabilities" Type="string" KeyPath="yes" />
-        <RegistryValue Root="HKLM" Key="Software\WordCraft\Capabilities" Name="ApplicationName" Value="WordCraft" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\RegisteredApplications" Name="DuyLong Word" Value="Software\WordCraft\Capabilities" Type="string" KeyPath="yes" />
+        <RegistryValue Root="HKLM" Key="Software\WordCraft\Capabilities" Name="ApplicationName" Value="DuyLong Word" Type="string" />
         <RegistryValue Root="HKLM" Key="Software\WordCraft\Capabilities" Name="ApplicationDescription" Value="Write and design documents; open and save Word files." Type="string" />
         <RegistryValue Root="HKLM" Key="Software\WordCraft\Capabilities" Name="ApplicationIcon" Value="&quot;[#WordcraftExe]&quot;,0" Type="string" />
-        <RegistryValue Root="HKLM" Key="Software\Classes\Applications\wordcraft.exe" Name="FriendlyAppName" Value="WordCraft" Type="string" />
+        <RegistryValue Root="HKLM" Key="Software\Classes\Applications\wordcraft.exe" Name="FriendlyAppName" Value="DuyLong Word" Type="string" />
         <RegistryValue Root="HKLM" Key="Software\Classes\Applications\wordcraft.exe\shell\open\command" Value="&quot;[#WordcraftExe]&quot; &quot;%1&quot;" Type="string" />
 
         <ProgId Id="WordCraft.Document" Description="Word Document" Icon="WordcraftExe" IconIndex="0" />

@@ -1,0 +1,20 @@
+{
+  "summary": "",
+  "minimal_about": true,
+  "show_contributors": false,
+  "show_models": false,
+  "links": {
+    "website": {
+      "label": "",
+      "url": ""
+    },
+    "github": {
+      "label": "",
+      "url": ""
+    },
+    "community": {
+      "label": "",
+      "url": ""
+    }
+  }
+}

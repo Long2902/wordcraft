@@ -1,0 +1,25 @@
+name: Branded Linux tar
+on:
+  workflow_dispatch:
+  push:
+    branches: ["branding/**"]
+permissions:
+  contents: read
+jobs:
+  tar:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: System dependencies
+        run: sudo apt-get update && sudo apt-get install -y pkg-config libasound2-dev libgtk-3-dev libxkbcommon-dev libwayland-dev libssl-dev libudev-dev
+      - name: Build tarball with upstream script
+        shell: bash
+        run: bash packaging/linux/package.sh --formats tar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wordcraft-linux-tar
+          path: dist/release/*.tar.gz
+          if-no-files-found: error
+          retention-days: 30
