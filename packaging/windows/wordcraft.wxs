@@ -17,6 +17,7 @@
 -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
   <Package
+      Codepage="65001"
       Name="DuyLong Word"
       Manufacturer="Đỗ Duy Long"
       Version="$(var.Version)"
@@ -24,7 +25,7 @@
       Scope="perMachine"
       Compressed="yes"
       Language="1033">
-    <SummaryInformation Description="DuyLong Word word processor" Manufacturer="Đỗ Duy Long" />
+    <SummaryInformation Codepage="65001" Description="DuyLong Word word processor" Manufacturer="Đỗ Duy Long" />
     <!-- Same-version upgrades let successive pre-releases of one X.Y.Z replace each other
          (MSI versions are numeric, so 1.2.3-rc.1 and 1.2.3-rc.2 are both 1.2.3). -->
     <MajorUpgrade AllowSameVersionUpgrades="yes"
