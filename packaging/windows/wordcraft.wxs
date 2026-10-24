@@ -33,9 +33,6 @@
 
     <Icon Id="WordcraftIcon.ico" SourceFile="$(var.IconPath)" />
     <Property Id="ARPPRODUCTICON" Value="WordcraftIcon.ico" />
-    <Property Id="ARPURLINFOABOUT" Value="" />
-    <Property Id="ARPURLUPDATEINFO" Value="" />
-    <Property Id="ARPHELPLINK" Value="" />
 
     <!-- Installer UI (#198): WixUI_Minimal is welcome + license, progress, then a finish page so
          people can see the install worked. Its dialogs and bitmaps are WiX's own
