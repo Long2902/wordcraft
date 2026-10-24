@@ -1,0 +1,37 @@
+{
+  "app": "wordcraft",
+  "display": "DuyLong Word",
+  "publisher": "Đỗ Duy Long",
+  "branch": "branding/duylong-word-20261024-193541",
+  "time": "20261024-193541",
+  "icon_assets": [
+    "assets/app-icon/wordcraft.ico",
+    "assets/app-icon/wordcraft-1024.png",
+    "assets/app-icon/hicolor/16x16/apps/ai.storyteller.wordcraft.png",
+    "assets/app-icon/hicolor/24x24/apps/ai.storyteller.wordcraft.png",
+    "assets/app-icon/hicolor/32x32/apps/ai.storyteller.wordcraft.png",
+    "assets/app-icon/hicolor/48x48/apps/ai.storyteller.wordcraft.png",
+    "assets/app-icon/hicolor/64x64/apps/ai.storyteller.wordcraft.png",
+    "assets/app-icon/hicolor/128x128/apps/ai.storyteller.wordcraft.png",
+    "assets/app-icon/hicolor/256x256/apps/ai.storyteller.wordcraft.png",
+    "assets/app-icon/hicolor/512x512/apps/ai.storyteller.wordcraft.png",
+    "assets/app-icon/wordcraft-macos-512.png",
+    "assets/app-icon/wordcraft.icns",
+    "assets/app-icon/wordcraft.svg",
+    "assets/app-icon/hicolor/scalable/apps/ai.storyteller.wordcraft.svg"
+  ],
+  "patched": {
+    "apps/wordcraft/src/main.rs": 1,
+    "apps/wordcraft/build.rs": 3,
+    "crates/ui-egui/src/chrome.rs": 2,
+    "crates/ui-egui/src/dialogs.rs": 3,
+    "crates/ui-egui/src/lib.rs": 4,
+    "crates/ui-egui/src/i18n/tests.rs": 10,
+    "crates/ui-egui/src/i18n/audit.rs": 1,
+    "packaging/linux/ai.storyteller.wordcraft.desktop": 2,
+    "packaging/windows/wordcraft.wxs": 20,
+    "packaging/macos/Info.plist.in": 4,
+    "packaging/linux/ai.storyteller.wordcraft.metainfo.xml.in": 1,
+    "crates/ui-egui/src/ribbon.rs": 1
+  }
+}

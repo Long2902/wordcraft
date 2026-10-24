@@ -1,0 +1,50 @@
+name: Branded Windows portable
+on:
+  workflow_dispatch:
+    inputs:
+      arch:
+        description: "Architecture"
+        required: true
+        type: choice
+        options: [x64, x86, arm64]
+        default: x64
+  push:
+    branches: ["branding/**"]
+permissions:
+  contents: read
+jobs:
+  portable:
+    runs-on: windows-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build app and CLI
+        shell: pwsh
+        run: |
+          $arch = if ("${{ github.event_name }}" -eq "workflow_dispatch") { "${{ inputs.arch }}" } else { "x64" }
+          $target = switch ($arch) { "x64" { "x86_64-pc-windows-msvc" } "x86" { "i686-pc-windows-msvc" } "arm64" { "aarch64-pc-windows-msvc" } }
+          rustup target add $target
+          $env:CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_RUSTFLAGS = "-C target-feature=+crt-static"
+          $env:CARGO_TARGET_I686_PC_WINDOWS_MSVC_RUSTFLAGS = "-C target-feature=+crt-static"
+          $env:CARGO_TARGET_AARCH64_PC_WINDOWS_MSVC_RUSTFLAGS = "-C target-feature=+crt-static"
+          $env:WORDCRAFT_REQUIRE_WINRES = "1"
+          cargo build --release --locked -p wordcraft -p wordcraft-cli --target $target
+          if ($LASTEXITCODE -ne 0) { throw "cargo build failed" }
+          $version = (Select-String -Path Cargo.toml -Pattern '^version\s*=\s*"([^"]+)"' | Select-Object -First 1).Matches.Groups[1].Value
+          $folder = "wordcraft-$version-windows-$arch-portable"
+          $root = Join-Path (Get-Location) "dist"
+          $out = Join-Path $root $folder
+          New-Item -ItemType Directory -Force -Path $out | Out-Null
+          Copy-Item "target/$target/release/wordcraft.exe", "target/$target/release/wordcraft-cli.exe" -Destination $out
+          foreach ($f in @("LICENSE-MIT", "LICENSE-APACHE", "NOTICE", "ATTRIBUTION.md", "BRANDING-DISTRIBUTION.md")) {
+            if (Test-Path $f) { Copy-Item $f -Destination $out }
+          }
+          Compress-Archive -Path $out -DestinationPath "$out.zip" -Force
+          Get-FileHash "$out.zip" -Algorithm SHA256 | Format-List
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wordcraft-windows-portable
+          path: dist/*.zip
+          if-no-files-found: error
+          retention-days: 30

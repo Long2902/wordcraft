@@ -1,0 +1,41 @@
+# Build all publisher-equivalent formats from a branded fork.
+# Trigger ONLY by deliberately pushing a build-all/* branch.
+name: Long2902 | Build ALL platform formats
+on:
+  push:
+    branches: ["build-all/**"]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: personal-all-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  release:
+    uses: storytold/craft-common-actions/.github/workflows/release.yml@main
+    with:
+      app-name: wordcraft
+      app-title: "DuyLong Word"
+      craft-fonts-ref: "8dcdacd5153e64560d109541a47d806f26f048c0"
+      has-web: true
+      has-freebsd: true
+      has-riscv64: true
+      has-arch: true
+      has-server: false
+      freebsd-architectures: '["x86_64"]'
+      version: ""
+    secrets:
+      APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+      APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+      KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+      WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      AZURE_SIGNING_ENDPOINT: ${{ secrets.AZURE_SIGNING_ENDPOINT }}
+      AZURE_SIGNING_ACCOUNT: ${{ secrets.AZURE_SIGNING_ACCOUNT }}
+      AZURE_CERT_PROFILE: ${{ secrets.AZURE_CERT_PROFILE }}

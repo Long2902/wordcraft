@@ -1,0 +1,10 @@
+BRANDING RESIDUAL SCAN (not a compiled binary test)
+Review the listed code references before publishing as an independent product.
+References that only attribute the upstream authors may be retained.
+
+crates/ui-egui/src/dialogs.rs:2696: egui::RichText::new(tl!("MIT OR Apache-2.0. Copyright (c) 2026 ArtCraft Team and the WordCraft contributors."))
+crates/mcp/src/server.rs:136: "serverInfo": {"name": "wordcraft", "title": "WordCraft", "version": env!("CARGO_PKG_VERSION"), "websiteUrl": "https://getartcraft.com/apps/wordcraft"},
+crates/mcp/src/server.rs:138: "{INSTRUCTIONS} Backend: {}. Community: https://discord.gg/artcraft · https://getartcraft.com/apps/wordcraft · https://github.com/storytold/wordcraft",
+crates/formats/src/latex.rs:55: o.push_str("% Written by WordCraft (https://getartcraft.com/apps/wordcraft).\n");
+crates/engine/src/sample.rs:115: CharProps { style: Some("Hyperlink".into()), link: Some("https://getartcraft.com/".into()), ..Default::default() },
+packaging/linux/ai.storyteller.wordcraft.metainfo.xml.in:24: <url type="contact">https://discord.gg/artcraft</url>

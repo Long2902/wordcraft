@@ -1,8 +1,10 @@
+> **Independent modified build:** wordcraft has been customized. Not an official ArtCraft release, and not endorsed by ArtCraft. The original upstream project remains attributed below.
+
 <p align="center">
   <a href="https://getartcraft.com/">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="docs/brand/artcraft-logo-white.svg">
-      <img alt="ArtCraft" src="docs/brand/artcraft-logo.svg" width="200">
+      <source media="(prefers-color-scheme: dark)" srcset="docs/brand/personal-logo.png">
+      <img alt="ArtCraft" src="docs/brand/personal-logo.png" width="200">
     </picture>
   </a>
 </p>
