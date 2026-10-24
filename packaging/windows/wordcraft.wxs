@@ -15,7 +15,7 @@
   product, so a shared code makes one app's installer refuse to install ("a newer version is
   already installed") or silently uninstall the other. packaging-lint.yml checks this.
 -->
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Package Codepage="65001"
       Name="DuyLong Word"
       Manufacturer="Đỗ Duy Long"
@@ -33,28 +33,20 @@
 
     <Icon Id="WordcraftIcon.ico" SourceFile="$(var.IconPath)" />
     <Property Id="ARPPRODUCTICON" Value="WordcraftIcon.ico" />
+    <Property Id="DESKTOPSHORTCUT" Value="1" Secure="yes" />
 
     <!-- Installer UI (#198): WixUI_Minimal is welcome + license, progress, then a finish page so
          people can see the install worked. Its dialogs and bitmaps are WiX's own
          (WixToolset.UI.wixext); package.ps1 builds the license RTF from LICENSE-MIT and
          LICENSE-APACHE. The finish page offers to launch WordCraft (ticked by default) through
          WixShellExec (WixToolset.Util.wixext); silent installs (/qn) never show it. -->
-    <WixVariable Id="WixUILicenseRtf" Value="$(var.LicenseRtf)" />
-    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch WordCraft" />
-    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
-    <Property Id="WixShellExecTarget" Value="[#WordcraftExe]" />
-    <CustomAction Id="LaunchWordcraft" BinaryRef="Wix4UtilCA_$(sys.BUILDARCHSHORT)" DllEntry="WixShellExec"
-        Impersonate="yes" Return="ignore" />
-    <UI>
-      <ui:WixUI Id="WixUI_Minimal" />
-      <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchWordcraft"
-          Condition="WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 AND NOT Installed" />
-    </UI>
+    <!-- CraftSuite: no authored license/finish/launch wizard -->
 
     <StandardDirectory Id="ProgramFiles6432Folder">
       <Directory Id="INSTALLFOLDER" Name="DuyLong Word" />
     </StandardDirectory>
     <StandardDirectory Id="ProgramMenuFolder" />
+    <StandardDirectory Id="DesktopFolder" />
 
     <Feature Id="Main" Title="DuyLong Word" Level="1">
       <ComponentGroupRef Id="WordcraftFiles" />
@@ -150,6 +142,10 @@
       <Component Id="WordcraftCli">
         <File Id="WordcraftCliExe" Source="$(var.BinDir)\wordcraft-cli.exe" KeyPath="yes" />
       </Component>
-    </ComponentGroup>
+          <Component Id="CraftDesktopShortcutComponent" Directory="DesktopFolder" Condition="DESKTOPSHORTCUT = &quot;1&quot;">
+        <Shortcut Id="CraftDesktopShortcut" Name="DuyLong Word" Target="[#WordcraftExe]" WorkingDirectory="INSTALLFOLDER" Icon="WordcraftIcon.ico" IconIndex="0" />
+        <RegistryValue Root="HKMU" Key="Software\CraftSuite\Wordcraft\Installer" Name="DesktopShortcutComponent" Value="1" Type="integer" KeyPath="yes" />
+      </Component>
+</ComponentGroup>
   </Fragment>
 </Wix>
