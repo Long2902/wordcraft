@@ -9,9 +9,9 @@ concurrency:
   group: craft-selected-${{ github.ref }}
   cancel-in-progress: false
 jobs:
-  windows-x64:
-    name: windows / x64 (msi, portable)
-    runs-on: windows-latest
+  macos-universal:
+    name: macos / universal (dmg)
+    runs-on: macos-15
     timeout-minutes: 180
     env:
       CARGO_INCREMENTAL: '0'
@@ -20,52 +20,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
         with:
-          targets: x86_64-pc-windows-msvc
+          targets: x86_64-apple-darwin,aarch64-apple-darwin
       - uses: Swatinem/rust-cache@v2
-      - name: Install WiX 5 for MSI
-        uses: storytold/craft-common-actions/actions/install-wix@main
-      - name: Build Windows installer (the upstream packaging script also creates ZIP)
-        shell: pwsh
-        run: pwsh packaging/windows/package.ps1 -Arch x64
+      - name: Build macOS universal (ad-hoc signed, NOT notarized)
+        shell: bash
+        run: bash packaging/macos/package.sh --arch universal
       - uses: actions/upload-artifact@v4
         with:
-          name: wordcraft-windows-x64-portable
-          path: dist/release/*-windows-x64-portable.zip
+          name: wordcraft-macos-universal-dmg
+          path: dist/release/*-macos-universal.dmg
           if-no-files-found: error
-          retention-days: 30
-      - uses: actions/upload-artifact@v4
-        with:
-          name: wordcraft-windows-x64-msi
-          path: dist/release/*-windows-x64.msi
-          if-no-files-found: error
-          retention-days: 30
-  windows-x86:
-    name: windows / x86 (msi, portable)
-    runs-on: windows-latest
-    timeout-minutes: 180
-    env:
-      CARGO_INCREMENTAL: '0'
-      CARGO_TERM_COLOR: always
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: i686-pc-windows-msvc
-      - uses: Swatinem/rust-cache@v2
-      - name: Install WiX 5 for MSI
-        uses: storytold/craft-common-actions/actions/install-wix@main
-      - name: Build Windows installer (the upstream packaging script also creates ZIP)
-        shell: pwsh
-        run: pwsh packaging/windows/package.ps1 -Arch x86
-      - uses: actions/upload-artifact@v4
-        with:
-          name: wordcraft-windows-x86-portable
-          path: dist/release/*-windows-x86-portable.zip
-          if-no-files-found: error
-          retention-days: 30
-      - uses: actions/upload-artifact@v4
-        with:
-          name: wordcraft-windows-x86-msi
-          path: dist/release/*-windows-x86.msi
-          if-no-files-found: error
-          retention-days: 30
